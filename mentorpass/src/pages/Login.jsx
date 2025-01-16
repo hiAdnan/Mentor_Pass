@@ -6,12 +6,32 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const isValidEmail = (email) => {
+    // Simple email regex
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
 
   const handleLogin = () => {
-    if (email && password) {
-      navigate("/checkout");
+    if (!isValidEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Get the user data stored in localStorage
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (storedUser) {
+      if (email === storedUser.email && password === storedUser.password) {
+        // If credentials match, redirect to checkout page
+        navigate("/checkout");
+      } else {
+        alert("Invalid email or password.");
+      }
     } else {
-      alert("Please enter both email and password.");
+      alert("No user found. Please sign up.");
     }
   };
 
@@ -24,8 +44,12 @@ const Login = () => {
           placeholder="Email"
           className="w-full mb-4 p-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring focus:ring-blue-500"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setError(""); // Clear error message when the email is updated
+          }}
         />
+        {error && <p className="text-red-500 text-sm">{error}</p>}
         <input
           type="password"
           placeholder="Password"
@@ -40,7 +64,10 @@ const Login = () => {
           Login
         </button>
         <p className="text-gray-400 mt-4 text-center">
-          Don&lsquo;t have an account? <a href="/signup" className="text-blue-400 hover:underline">Sign Up</a>
+          Don&#39;t have an account?{" "}
+          <a href="/signup" className="text-blue-400 hover:underline">
+            Sign Up
+          </a>
         </p>
       </div>
     </div>

@@ -1,3 +1,4 @@
+//File:mentorpass\src\components\Header.jsx
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 
@@ -49,6 +50,12 @@ const Header = () => {
             className="bg-blue-500 text-white text-sm md:text-base px-4 py-2 rounded-lg hover:bg-blue-600 transition-all"
           >
             Login
+          </a>
+          <a
+            href="/signup"
+            className="bg-green-500 text-white text-sm md:text-base px-4 py-2 rounded-lg hover:bg-green-600 transition-all"
+          >
+            Sign Up
           </a>
         </nav>
 
@@ -122,6 +129,12 @@ const Header = () => {
               className="bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition-all"
             >
               Login
+            </a>
+            <a
+              href="/signup"
+              className="bg-green-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-green-600 transition-all"
+            >
+              Sign Up
             </a>
           </nav>
         </div>
